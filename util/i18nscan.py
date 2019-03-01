@@ -8,13 +8,11 @@ count = 0
 
 class Properties(object):
 
-    def __init__(self, path, fileName):
-        self.fileName = path + os.sep + fileName
+    def __init__(self, path, file_name):
+        self.fileName = path + os.sep + file_name
         self.properties = {}
 
-
-    def getProperties(self):
-
+    def get_properties(self):
         # define null dict
         summary_dict = {}
         # count repeated ke
@@ -56,7 +54,7 @@ def tree(path, files):
             # only search file start with i18n.properties and get properties
             if file.startswith('i18n.properties'):
                 p = Properties(path, file)
-                p.getProperties()
+                p.get_properties()
 
 
 def ems(path, files):
