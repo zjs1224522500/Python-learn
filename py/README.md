@@ -7,7 +7,7 @@
 
 ##### hello world
 ```python
-// input()默认返回字符串，int(param) 可进行强转
+# input() #默认返回字符串，int(param) #可进行强转
 name = input('please enter your name: ')
 print('hello,', name)
 ```
@@ -74,7 +74,7 @@ print('hello,', name)
     >>> t
     ('a', 'b', ['X', 'Y'])
     
-    //tuple本身的元素没变，但是其中 t[2]指向的是一个list，Tuple对List的指向并未发生改变，改变的其实list指向的两个元素
+    # tuple本身的元素没变，但是其中 t[2]指向的是一个list，Tuple对List的指向并未发生改变，改变的其实list指向的两个元素
     ```
 
 ##### 条件判断
@@ -96,7 +96,7 @@ else:
     - element 作为临时变量
     - elements 作为相关集合 list/tuple
 ```python
-//range(num) return numbers which are less than num
+# range(num) return numbers which are less than num
 sum = 0
 for x in range(101):
     sum = sum + x
@@ -135,7 +135,7 @@ def nop():
     pass
     
     
-//添加参数检查
+# 添加参数检查
 def my_abs(x):
     if not isinstance(x, (int, float)):
         raise TypeError('bad operand type')
@@ -144,7 +144,7 @@ def my_abs(x):
     else:
         return -x
         
-//返回多个值
+# 返回多个值
 import math
 
 def move(x, y, step, angle=0):
@@ -160,8 +160,8 @@ from fileName import functionName
 ```
 
 - 函数参数：
-```java
-//默认参数。（必选参数在前，默认参数在后，且默认参数必须指向不变的对象）
+```Python
+# 默认参数。（必选参数在前，默认参数在后，且默认参数必须指向不变的对象）
 def power(x, n=2):
     s = 1
     while n > 0:
@@ -169,20 +169,87 @@ def power(x, n=2):
         s = s * x
     return s
     
-//可变参数，调用时可以传入任意个参数
+# 可变参数，调用时可以传入任意个参数, 调用时自动组装为 Tuple
 def calc(*numbers):
     sum = 0
     for n in numbers:
         sum = sum + n * n
     return sum
     
-//调用时，可以在tuple和list前加*转换为可变参数
+# 调用时，可以在tuple和list前加 * 转换为可变参数
 >>> nums = [1, 2, 3]
 >>> calc(*nums)
 14
 
 
-//关键字参数
+# 关键字参数，调用时可以传入任意个含参数名的参数， 自动组装为一个 Dict
 def person(name, age, **kw):
     print('name:', name, 'age:', age, 'other:', kw)
+
+# 调用实例
+>>> person('Bob', 32, city='Beijing')
+name: Bob age: 32 other: {'city': 'Beijing'}
+>>> person('Adam', 45, gender='M', job='Engineer')
+name: Adam age: 45 other: {'gender': 'M', 'job': 'Engineer'}
+
+# 也可以先组装Dict
+>>> kw = {'city': 'Beijing', 'job': 'Engineer'}
+>>> person('Jack', 24, city=kw['city'], job=kw['job'])
+name: Jack age: 24 other: {'city': 'Beijing', 'job': 'Engineer'}
+>>> kw = {'city': 'Beijing', 'job': 'Engineer'}
+>>> person('Jack', 24, **kw)
+name: Jack age: 24 other: {'city': 'Beijing', 'job': 'Engineer'}
+
+
+# 参数组合。 顺序（必选参数、默认参数、可变参数和关键字参数）
+def func(a, b, c=0, *args, **kw):
+    print ('a =', a, 'b =', b, 'c =', c, 'args =', args, 'kw =', kw)
+# 调用
+>>> func(1, 2)
+a = 1 b = 2 c = 0 args = () kw = {}
+>>> func(1, 2, c=3)
+a = 1 b = 2 c = 3 args = () kw = {}
+>>> func(1, 2, 3, 'a', 'b')
+a = 1 b = 2 c = 3 args = ('a', 'b') kw = {}
+>>> func(1, 2, 3, 'a', 'b', x=99)
+a = 1 b = 2 c = 3 args = ('a', 'b') kw = {'x': 99}
+>>> args = (1, 2, 3, 4)
+>>> kw = {'x': 99}
+>>> func(*args, **kw)
+a = 1 b = 2 c = 3 args = (4,) kw = {'x': 99}
+
+# 对于任意函数，都可以通过类似func(*args, **kw)的形式调用它，无论它的参数是如何定义的
 ```
+- 递归函数：
+```python
+# 计算阶乘
+def fact(n):
+    if n==1:
+        return 1
+    return n * fact(n - 1)
+# 调用
+>>> fact(1)
+1
+>>> fact(5)
+120
+```
+
+###### 高级特性
+- 切片: 类似于 `Java#subString()`
+```python
+>>> L = ['Michael', 'Sarah', 'Tracy', 'Bob', 'Jack']
+>>> L[0:3]
+['Michael', 'Sarah', 'Tracy']
+>>> L[:3]
+['Michael', 'Sarah', 'Tracy']
+>>> L[-2:]
+['Bob', 'Jack']
+>>> L[-2:-1]
+['Bob']
+
+# 实现 trim() 函数
+
+```
+
+
+
