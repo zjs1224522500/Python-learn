@@ -21,3 +21,4 @@ do
     echo ${commandResult}
 done
 echo "--------------------End-----------------"
+read -n 1 -p "Press any key to continue..."

@@ -73,3 +73,4 @@ mText3=$mText" "$mText2  # concat string
 echo $mText3  # print string
 echo ${#mText3}  # print length of string
 echo ${mText3:1:4}  # sub string
+read -n 1 -p "Press any key to continue..."
