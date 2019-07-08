@@ -41,8 +41,8 @@
 ###### 细节 
 根据现在最新的[ V3 ](https://developer.openstack.org/api-ref/block-storage/v3/index.html)版本的 API总结如下:
 - [Github: Volume 资源模型](https://github.com/openstack/cinder/blob/master/cinder/db/sqlalchemy/models.py)
-- Volumn Type 主要是针对多后端存储进行卷类型的管理
-![image](https://img-blog.csdnimg.cn/20190225183417599.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0ptaWxr,size_16,color_FFFFFF,t_70)
+- Volumn Type 主要是针对多后端存储进行卷类型的管理  
+![image](https://img-blog.csdnimg.cn/20190225183417599.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0ptaWxr,size_16,color_FFFFFF,t_70)  
 - Volumes 针对 卷 来进行管理。其中一个卷（Volume）类似于一个如USB硬盘的可插拔的块存储设备，每一次可以将卷对应的挂载到实例上。
     - 对 Volumes 设备进行 CRUD 时，对应的会有很多种状态，可以参考对应官方文档中的状态表。
     - CRUD of Cinder Volumn
