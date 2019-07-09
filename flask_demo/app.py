@@ -1,9 +1,14 @@
 import os
 
-from flask import Flask, request, render_template, url_for, abort, make_response
+from flask import Flask, request, render_template, url_for, abort, make_response, json, jsonify
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
+from flask_demo.model.db_model import User, Role
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost:3306/students'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+db = SQLAlchemy(app)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -91,6 +96,17 @@ def page_no_auth(error):
     resp = make_response(render_template('/error/401.html'), 401)
     resp.headers['X-Something'] = 'Nothing'
     return resp
+
+
+@app.route('/users', methods=['GET'])
+def find_all_users():
+    # print(dict(User.query.all()))
+    # user = dict(User.query.filter_by(role_id=3).first())
+    users = User.query.all()
+    # return jsonify(user)
+    user = User.query.filter_by(role_id=3).first()
+    print(user.__dict__)
+    return jsonify(user.to_dict())
 
 
 if __name__ == '__main__':
