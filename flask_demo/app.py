@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, request, render_template, url_for, abort
+from flask import Flask, request, render_template, url_for, abort, make_response
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -83,7 +83,14 @@ def error():
 
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template('/404/404.html'), 404
+    return render_template('/error/404.html'), 404
+
+
+@app.errorhandler(401)
+def page_no_auth(error):
+    resp = make_response(render_template('/error/401.html'), 401)
+    resp.headers['X-Something'] = 'Nothing'
+    return resp
 
 
 if __name__ == '__main__':
