@@ -14,7 +14,7 @@ print("\nCreating a context for the '%s' pool" % pool_name)
 pools = cluster.list_pools()
 print("\nList pools in ceph:")
 for pool in pools:
-    print(pool, end=", ")
+    print(" " + pool)
 cluster.create_pool(pool_name)
 if not cluster.pool_exists(pool_name):
     raise RuntimeError("No data pool named '%s' exists" % pool_name)
