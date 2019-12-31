@@ -47,8 +47,21 @@ print(ioctx.get_xattr("name", "lang"))
 # Reading object data
 print("\nContents of object 'name'\n------------------------")
 print(ioctx.read("name"))
-print("\nClosing the connection.")
+
+# Append object data
+print("\n Append object 'name'\n-----------------------------")
+ioctx.append('name', 'append value~~~')
+print("\nContents of object 'name'\n------------------------")
+print(ioctx.read("name"))
+
+# Remove object data
+print("\n Remove object 'school'\n---------------------------")
+ioctx.remove_object("school")
+print("\n Contents of object 'school'\n------------------------")
+print(ioctx.read("school"))
+
 
 # Close the io context and delete the pool created temporarily
+print("\nClosing the connection.")
 ioctx.close()
 cluster.delete_pool(pool_name)
