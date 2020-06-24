@@ -39,7 +39,7 @@ def readFilename(path, all_file):
 def begin():
     summary_dict = {}
     ff1 = "C://Users//Elvis Zhang//Desktop//file"
-    ff2 = "C://Users//Elvis Zhang//Desktop//kv"
+    ff2 = "C://Users//Elvis Zhang//Desktop//obj"
     all_jpg1 = []
     all_jpg1 = readFilename(ff1, all_jpg1)
     # print allJPG1
