@@ -6,12 +6,10 @@ import hashlib
 
 
 # 计算 md5
-def getHash(f):
+def get_hash(f):
     # line=f.readline()
     md5_hash = hashlib.md5()
     while True:
-        # md5_hash.update(line)                                、
-        # line=f.readline()
         content = f.read(1024)
         if not content:
             break
@@ -20,7 +18,7 @@ def getHash(f):
 
 
 # 返回所有文件名
-def readFilename(path, all_file):
+def read_file_name(path, all_file):
     file_list = os.listdir(path)
 
     for filename in file_list:
@@ -28,50 +26,40 @@ def readFilename(path, all_file):
         # filepath=unicode(filepath,"utf-8")
 
         if os.path.isdir(filepath):
-            readFilename(filepath, all_file)
+            read_file_name(filepath, all_file)
         else:
-            all_file.append(filepath)
+            all_file[filename] = filepath
+            # all_file.append(filepath)
 
     return all_file
 
 
-#
-def begin():
+def compare_all(files_one, files_two):
     summary_dict = {}
-    ff1 = "C://Users//Elvis Zhang//Desktop//file"
-    ff2 = "C://Users//Elvis Zhang//Desktop//obj"
-    all_jpg1 = []
-    all_jpg1 = readFilename(ff1, all_jpg1)
-    # print allJPG1
-
-    all_jpg2 = []
-    all_jpg2 = readFilename(ff2, all_jpg2)
-    # print allJPG2
-
     count = 0
-    for a1 in all_jpg1:
-        for b1 in all_jpg2:
-            # print a1,b1
-            with open(a1, 'rb') as f1, open(b1, 'rb') as f2:
-                m1 = getHash(f1)
+    for file_one in files_one:
+        for file_two in files_two:
+            # print file_one,file_two
+            with open(file_one, 'rb') as f1, open(file_two, 'rb') as f2:
+                m1 = get_hash(f1)
                 # print m1
-                m2 = getHash(f2)
+                m2 = get_hash(f2)
                 # print m2
 
             if m1 == m2:
                 count = count + 1
                 print(count)
-                print("%s = %s" % (a1, b1))
+                print("%s = %s" % (file_one, file_two))
 
                 # add to dict
-                summary_dict[a1] = b1
+                summary_dict[file_one] = file_two
 
                 # output file
-                filepath = 'C://Users//Elvis Zhang//Desktop//link.txt'
+                filepath = "C://Users/lyh/Desktop/log/0630/link.txt"
                 # filepath = 'H:\\RINS1000\\' + 'Link.txt'
                 with open(filepath, 'a') as fp:
-                    fp.write(a1.split("\\")[-1] + "\t\t")
-                    fp.write(b1.split("\\")[-1] + "\n")
+                    fp.write(file_one.split("\\")[-1] + "\t\t")
+                    fp.write(file_two.split("\\")[-1] + "\n")
 
                 fp.close()
             f1.close()
@@ -80,11 +68,47 @@ def begin():
     print(len(summary_dict))
 
     # 取差集
-    diff = list(set(all_jpg1).difference(set(summary_dict.keys())))
+    diff = list(set(files_one).difference(set(summary_dict.keys())))
     print(len(diff))
     for di in diff:
         print(di.split("\\")[-1])
     return summary_dict
+
+
+def compare_with_same_name(files_one, files_two):
+    count = 0
+    differ_dict = []
+    for file_one in files_one:
+        if file_one in files_two:
+            with open(files_one[file_one], 'rb') as f1, open(files_two[file_one], 'rb') as f2:
+                m1 = get_hash(f1)
+                # print m1
+                m2 = get_hash(f2)
+                if m1 == m2:
+                    print("%s same\n" % file_one)
+                else:
+                    print("%s differ\n" % file_one)
+                    count += 1
+                    differ_dict.append(file_one)
+                f1.close()
+                f2.close()
+        else:
+            print("%s not both.\n" % files_one)
+    print("Differ Count: %d" % count)
+    print(differ_dict)
+
+
+#
+def begin():
+    ff1 = "C://Users/lyh/Desktop/log/0630/file/test (4)/root/tcmu_kv_demo_obj"
+    ff2 = "C://Users/lyh/Desktop/log/0630/hcs/hcs (2)/down"
+    files_one = {}
+    files_one = read_file_name(ff1, files_one)
+
+    files_two = {}
+    files_two = read_file_name(ff2, files_two)
+    # return compare_all(files_one, files_two)
+    return compare_with_same_name(files_one, files_two)
 
 
 if __name__ == '__main__':
@@ -97,3 +121,4 @@ if __name__ == '__main__':
 
     end = timeit.default_timer()
     print(str(end - start))
+
