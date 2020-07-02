@@ -100,8 +100,9 @@ def compare_with_same_name(files_one, files_two):
 
 #
 def begin():
-    ff1 = "C://Users/lyh/Desktop/log/0630/file/test (4)/root/tcmu_kv_demo_obj"
-    ff2 = "C://Users/lyh/Desktop/log/0630/hcs/hcs (2)/down"
+    # ff1 = "C://Users/lyh/Desktop/log/0630/file/test (8)/root/tcmu_kv_demo_obj"
+    ff1 = "C://Users/lyh/Desktop/log/0630/hcs_file/hcs (4)/root/hcs_download"
+    ff2 = "C://Users/lyh/Desktop/log/0630/hcs_file/hcs (5)/root/hcs_download"
     files_one = {}
     files_one = read_file_name(ff1, files_one)
 
