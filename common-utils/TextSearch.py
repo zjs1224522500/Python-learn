@@ -19,12 +19,20 @@ def search_length(line):
     if line.__contains__('[Parameter]'):
         start = line.index("length")
         end = line.index(", offset")
-        return str(int(int(line[start + 6:end]) / 1024)) + "KB"
+        return str(int(int(line[start + 6:end]) / 1024))
     else:
         return None
 
 
+def print_length_dict(dict_data):
+    total = 0
+    for (k, v) in dict_data:
+        total += v
+        print(str(k) + "KB : " + str(v))
+    print("Average Size: %d KB" % (total / dict_data.__len__()))
+
+
 if __name__ == '__main__':
     path = "C://Users/lyh/Desktop/tcmu-runner.log"
-    print(sort_dict_with_value(search_param(path)))
+    print_length_dict(sort_dict_with_value(search_param(path)))
 
