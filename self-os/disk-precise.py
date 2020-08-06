@@ -1,8 +1,7 @@
 #! /usr/bin/env python
 
 from tkinter import *
-from types import *
-import math, random, time, sys, os
+import math, random, sys
 from optparse import OptionParser
 from decimal import *
 
