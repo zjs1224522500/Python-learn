@@ -21,10 +21,10 @@ def sort_dict_with_value(dict_data):
 
 
 def search_length(line):
-    if line.__contains__('[Parameter]'):
+    if line.__contains__('[Parameter] Tid'):
         start = line.index("length")
         end = line.index(", offset")
-        is_read = line.__contains__('[Parameter] Read')
+        is_read = line.__contains__('Read file with length')
         return is_read, str(float(float(line[start + 6:end]) / 1024))
     else:
         return True, None
@@ -42,7 +42,7 @@ def print_length_dict(dict_data):
 
 
 if __name__ == '__main__':
-    path = "C://Users/lyh/Desktop/tcmu-runner (23).log"
+    path = "C:/Users/Administrator/Desktop\\tcmu-runner (2).log"
     read_dict, write_dict = search_param(path)
     print("**************Read Dict:*****************")
     print_length_dict(sort_dict_with_value(read_dict))
