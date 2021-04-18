@@ -21,9 +21,9 @@ def sort_dict_with_value(dict_data):
 
 
 def search_length(line):
-    input = '[Parameter-Input]'
-    output = '[Parameter-Output]'
-    if line.__contains__(input):
+    input_word = '[Parameter-Input]'
+    output_word = '[Parameter-Output]'
+    if line.__contains__(input_word):
         start = line.index("length")
         if line.__contains__(", offset"):
             end = line.index(", offset")
