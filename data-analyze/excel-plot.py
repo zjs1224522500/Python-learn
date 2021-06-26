@@ -69,35 +69,39 @@ count = 0
 plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
 
-for school_data in schools:
-    count += 1
+i = 0
+for i in range(2):
+    print(i)
+    plt.figure(figsize=(16, 10))
+    for school_data in schools:
+        count += 1
 
-    min_data_arr = [year.min for year in school_data.years][::-1]
-    avg_data_arr = [year.avg for year in school_data.years][::-1]
-    plt.subplot(2, 2, int((count - 1) / 8 + 1))
-    plt.plot(years[::-1], min_data_arr, label='min' + school_data.name)
-    # plt.legend(loc='best', fontsize='small')
+        min_data_arr = [year.min for year in school_data.years][::-1]
+        avg_data_arr = [year.avg for year in school_data.years][::-1]
+        data = min_data_arr if i == 0 else avg_data_arr
+        label_name = str('min' + school_data.name) if i == 0 else str('avg' + school_data.name)
+        plt.subplot(2, 4, int((count - 1) / 4 + 1))
+        plt.plot(years[::-1], data, label=label_name)
+        plt.legend(loc='best', fontsize='small')
 
-    for a, b in zip(years[::-1], min_data_arr):
-        plt.text(a, b, b, ha='center', va='bottom', fontsize=10)
-
-
-    # if count % 8 == 0:
-
+        for a, b in zip(years[::-1], data):
+            plt.text(a, b, b, ha='center', va='bottom', fontsize=10)
 
 
+        # if count % 8 == 0:
 
+        # line1.set_dashes([2, 2, 10, 2])  # 将曲线设置为点划线，set_dashes([line_space,space_space,line_space,space_space])
+        # line2, = plt.plot(x, y2, label='流量场方差')
+        # line2.set_dashes([2, 2, 2, 2])
+        # plt.title('方差曲线', fontsize=16)
+        # plt.legend(loc=4)  # 设置图例位置，4表示右下角
+    count = 0
 
+    ax = plt.gca()
+    # ax.xaxis.set_ticks_position('top')  # 将x轴的位置设置在顶部
+    # ax.invert_xaxis()  # x轴反向
 
-    # line1.set_dashes([2, 2, 10, 2])  # 将曲线设置为点划线，set_dashes([line_space,space_space,line_space,space_space])
-    # line2, = plt.plot(x, y2, label='流量场方差')
-    # line2.set_dashes([2, 2, 2, 2])
-    # plt.title('方差曲线', fontsize=16)
-    # plt.legend(loc=4)  # 设置图例位置，4表示右下角
-ax = plt.gca()
-# ax.xaxis.set_ticks_position('top')  # 将x轴的位置设置在顶部
-# ax.invert_xaxis()  # x轴反向
+    # ax.yaxis.set_ticks_position('right')  # 将y轴的位置设置在右边
+    ax.invert_yaxis()  # y轴反向
+    plt.show()
 
-# ax.yaxis.set_ticks_position('right')  # 将y轴的位置设置在右边
-ax.invert_yaxis()  # y轴反向
-plt.show()
