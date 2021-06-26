@@ -30,7 +30,7 @@ def merge_dict(dict1, dict2):
 
 
 if __name__ == '__main__':
-    dir = "C:\\Users\\Administrator\\Desktop\\hikvision\\fio-1\\"
+    dir = "C:\\Users\\Elvis Zhang\\Desktop\\hik\\fio\\"
     files = os.listdir(dir)
     total_err = {}
     for file in files:

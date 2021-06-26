@@ -23,13 +23,13 @@ def sort_dict_with_value(dict_data):
 def search_length(line):
     input_word = '[Parameter-Input]'
     output_word = '[Parameter-Output]'
-    if line.__contains__(input_word):
+    if line.__contains__(output_word):
         start = line.index("length")
         if line.__contains__(", offset"):
             end = line.index(", offset")
         elif line.__contains__(", start position"):
             end = line.index(", start position")
-        is_read = line.__contains__('Read file with length')
+        is_read = line.__contains__('(Read)')
         return is_read, str(float(float(line[start + 6:end]) / 1024))
     else:
         return True, None
@@ -47,7 +47,7 @@ def print_length_dict(dict_data):
 
 
 if __name__ == '__main__':
-    path = "C:\\Users\\Administrator\\Desktop\\hikvision\\fio-6\\tcmu-runner.log.new"
+    path = "C:\\Users\\Elvis Zhang\\Desktop\hik\\fio\\tcmu-runner.log"
     read_dict, write_dict = search_param(path)
     print("**************Read Dict:*****************")
     print_length_dict(sort_dict_with_value(read_dict))
