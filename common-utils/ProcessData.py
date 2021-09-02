@@ -1,6 +1,7 @@
 import os
+from string import Template
 
-path = r"C:\Users\Elvis Zhang\Desktop\round2"
+path = r"C:\Users\Administrator\Desktop\thr-test\kept-bf-1000-cf-10000"
 
 
 class TestData:
@@ -69,10 +70,42 @@ def build_test_data(file_name):
 
 if __name__ == '__main__':
     test_dict = {}
+    format_dict = {}
     for file in os.listdir(path):
         test_dict[file] = build_test_data(file)
     for kv in test_dict.items():
-        print(kv[0], kv[1].__dict__)
+        key = ""
+        if kv[0].__contains__("11G"):
+            key = kv[0].replace("11G", "12G")
+        else:
+            key = kv[0]
+        print(key, kv[1].__dict__)
+        format_dict[key] = kv[1].__dict__
 
+    wo_cache_name = Template("1t-NoCP-NoCache-leveldb-12G-$op_type-100M-$workload.txt")
+    cache_10w_name = Template("1t-NoCP-Cache-10w-leveldb-12G-$op_type-100M-$workload.txt")
+    pro_20480_name = Template("1t-CP-20480-Cache-10w-leveldb-12G-$op_type-100M-$workload.txt")
+    pro_10240_name = Template("1t-CP-10240-Cache-10w-leveldb-12G-$op_type-100M-$workload.txt")
+    pro_1024_name = Template("1t-CP-1024-Cache-10w-leveldb-12G-$op_type-100M-$workload.txt")
 
+    data_groups = [wo_cache_name, cache_10w_name, pro_1024_name, pro_10240_name, pro_20480_name]
+    workload_type = ['A', 'B', 'C', 'D']
+    for data in ["total_throughput", "read_throughput", "write_throughput"]:
+        for wl in workload_type:
+            if wl == "C":
+                ops = "read"
+            else:
+                ops = "rw"
+            for group in data_groups[:3]:
+                try:
+                    print(str(format_dict[group.substitute(op_type=ops, workload=wl)][data]) + "\t", end="")
+                except KeyError:
+                    pass
+
+            print("")
+            # print(str(format_dict[wo_cache_name.substitute(op_type=ops, workload=wl)][data]) + "\t"
+            #       + str(format_dict[cache_10w_name.substitute(op_type=ops, workload=wl)][data]) + "\t"
+            #       + str(format_dict[pro_1024_name.substitute(op_type=ops, workload=wl)][data]) + "\t"
+            #       + str(format_dict[pro_10240_name.substitute(op_type=ops, workload=wl)][data]) + "\t"
+            #       + str(format_dict[pro_20480_name.substitute(op_type=ops, workload=wl)][data]) + "\t")
 

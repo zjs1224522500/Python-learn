@@ -36,10 +36,6 @@ rows = book_sheet.rows
 columns = book_sheet.columns
 
 i = 0
-# 迭代所有的行
-# line = [col.value for col in rows]
-# print(line)
-
 years = []
 schools = []
 for row in rows:
@@ -72,10 +68,12 @@ plt.rcParams['axes.unicode_minus'] = False
 i = 0
 for i in range(2):
     print(i)
-    plt.figure(figsize=(16, 10))
+    plt.figure(figsize=(20, 10))
     for school_data in schools:
-        count += 1
+        ax = plt.gca()
+        ax.invert_yaxis()
 
+        count += 1
         min_data_arr = [year.min for year in school_data.years][::-1]
         avg_data_arr = [year.avg for year in school_data.years][::-1]
         data = min_data_arr if i == 0 else avg_data_arr
@@ -87,7 +85,6 @@ for i in range(2):
         for a, b in zip(years[::-1], data):
             plt.text(a, b, b, ha='center', va='bottom', fontsize=10)
 
-
         # if count % 8 == 0:
 
         # line1.set_dashes([2, 2, 10, 2])  # 将曲线设置为点划线，set_dashes([line_space,space_space,line_space,space_space])
@@ -98,10 +95,11 @@ for i in range(2):
     count = 0
 
     ax = plt.gca()
-    # ax.xaxis.set_ticks_position('top')  # 将x轴的位置设置在顶部
-    # ax.invert_xaxis()  # x轴反向
-
-    # ax.yaxis.set_ticks_position('right')  # 将y轴的位置设置在右边
+    # # ax.xaxis.set_ticks_position('top')  # 将x轴的位置设置在顶部
+    # # ax.invert_xaxis()  # x轴反向
+    #
+    # # ax.yaxis.set_ticks_position('right')  # 将y轴的位置设置在右边
     ax.invert_yaxis()  # y轴反向
+
     plt.show()
 
