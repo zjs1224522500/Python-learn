@@ -1,7 +1,7 @@
 import os
 from string import Template
 
-path = r"C:\Users\Administrator\Desktop\thr-test\kept-bf-1000-cf-10000"
+path = r"C:\Users\Administrator\Desktop\thr-test\kept-bf-5w-cf-5w-round2"
 
 
 class TestData:
