@@ -1,7 +1,7 @@
 import os
 from string import Template
 
-path = r"C:\Users\Administrator\Desktop\thr-test\kept-bf-5w-cf-5w-round2"
+path = r"C:\Users\Administrator\Desktop\thr-test\test-2\delete\all\r5"
 
 
 class TestData:
@@ -87,8 +87,9 @@ if __name__ == '__main__':
     pro_20480_name = Template("1t-CP-20480-Cache-10w-leveldb-12G-$op_type-100M-$workload.txt")
     pro_10240_name = Template("1t-CP-10240-Cache-10w-leveldb-12G-$op_type-100M-$workload.txt")
     pro_1024_name = Template("1t-CP-1024-Cache-10w-leveldb-12G-$op_type-100M-$workload.txt")
+    delete_name = Template("1t-Delete-NoCache-leveldb-12G-$op_type-100M-$workload.txt")
 
-    data_groups = [wo_cache_name, cache_10w_name, pro_1024_name, pro_10240_name, pro_20480_name]
+    data_groups = [wo_cache_name, cache_10w_name, pro_1024_name, pro_10240_name, pro_20480_name, delete_name]
     workload_type = ['A', 'B', 'C', 'D']
     for data in ["total_throughput", "read_throughput", "write_throughput"]:
         for wl in workload_type:
@@ -96,11 +97,11 @@ if __name__ == '__main__':
                 ops = "read"
             else:
                 ops = "rw"
-            for group in data_groups[:3]:
+            for group in data_groups[:6]:
                 try:
                     print(str(format_dict[group.substitute(op_type=ops, workload=wl)][data]) + "\t", end="")
                 except KeyError:
-                    pass
+                    continue
 
             print("")
             # print(str(format_dict[wo_cache_name.substitute(op_type=ops, workload=wl)][data]) + "\t"
