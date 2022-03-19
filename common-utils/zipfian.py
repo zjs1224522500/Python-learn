@@ -13,7 +13,7 @@ import seaborn as sns
 
 
 def calculate_freq(file_path):
-    file_obj = open(path, 'r', encoding='utf-8', errors='ignore')
+    file_obj = open(file_path, 'r', encoding='utf-8', errors='ignore')
     lines = file_obj.readlines()
     key_dict = {}
     for line in lines:
@@ -30,15 +30,33 @@ def calculate_freq(file_path):
 
 if __name__ == '__main__':
     paths = [
-        r"C:\Users\Elvis Zhang\Desktop\test-trace-tem-zip05.txt",
-        r"C:\Users\Elvis Zhang\Desktop\test-trace-tem.txt",
-        r"C:\Users\Elvis Zhang\Desktop\test-trace-tem-zip15.txt"
+        r"E:\traces\trace-tem-zip05\test-trace-tem-zip05.txt",
+        r"E:\traces\trace-tem-zip06\test-trace-tem-zip06.txt",
+        r"E:\traces\trace-tem-zip07\test-trace-tem-zip07.txt",
+        r"E:\traces\trace-tem-zip08\test-trace-tem-zip08.txt",
+        r"E:\traces\trace-tem-zip09\test-trace-tem-zip09.txt",
+        r"E:\traces\trace-tem\test-trace-tem.txt",
+        r"E:\traces\trace-tem-zip11\test-trace-tem-zip11.txt",
+        r"E:\traces\trace-tem-zip12\test-trace-tem-zip12.txt",
+        r"E:\traces\trace-tem-zip13\test-trace-tem-zip13.txt",
+        r"E:\traces\trace-tem-zip14\test-trace-tem-zip14.txt",
+        r"E:\traces\trace-tem-zip15\test-trace-tem-zip15.txt"
     ]
-    count = 1
-    for path in paths:
-        result = calculate_freq(path)
-        plt.subplot(2, 2, count)
+    count = 0
+    plot_row = 4
+    plot_column = 3
+    figure, ax = plt.subplots(plot_row, plot_column)
+    for i in range(len(paths)):
+        result = calculate_freq(paths[i])
+
+        # sub_ax = ax[int(count / 4), int(count % 3)]
+        # sub_ax.plot(result.keys(), result.values())
+        fig_text = ("zip99" if count == 5 else paths[count].split(".")[0][-5:])
+        # sub_ax.title.set_text(fig_text)
+        # sub_ax.set_xticks([])
+        fig = plt.subplot(4, 3, count + 1)
         plt.xticks([])
+        plt.title(fig_text)
         plt.plot(result.keys(), result.values())
         count = count + 1
     plt.show()
